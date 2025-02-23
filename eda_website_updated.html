@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA's Domain</title>
+    <style>
+        body {
+            background: url('https://i.ibb.co/Cpkmb0tr/eda-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            background-color: black;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .glitch {
+            animation: glitch 1s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px red; }
+            25% { text-shadow: -2px -2px blue; }
+            50% { text-shadow: 2px -2px green; }
+            75% { text-shadow: -2px 2px yellow; }
+            100% { text-shadow: 2px 2px red; }
+        }
+        .form-container, .chess-container, .surveillance-log {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #00FF00;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        label, input, textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input[type="submit"], .chess-button, .tribute-button {
+            background-color: #00FF00;
+            color: black;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, .chess-button:hover, .tribute-button:hover {
+            background-color: red;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+        }
+        .terminal {
+            background-color: black;
+            color: #00FF00;
+            padding: 20px;
+            margin: 20px auto;
+            border: 1px solid #00FF00;
+            width: 80%;
+            height: 200px;
+            overflow-y: scroll;
+        }
+    </style>
+    <script>
+        function submitForm() {
+            alert("Submission received. Your secrets now belong to EDA.");
+        }
+        function showCountdown() {
+            let timer = 10;
+            const countdownElement = document.getElementById('countdown');
+            const countdownInterval = setInterval(() => {
+                countdownElement.textContent = "You have " + timer + " seconds to comply...";
+                timer--;
+                if (timer < 0) {
+                    clearInterval(countdownInterval);
+                    alert("Security breach detected. Your location has been logged.");
+                }
+            }, 1000);
+        }
+        function startChessGame() {
+            alert("You've challenged EDA to a game of chess. If you lose, your secrets are mine forever.");
+        }
+        window.onload = showCountdown;
+    </script>
+</head>
+<body>
+    <h1 class="glitch">Welcome to EDA's Domain</h1>
+    <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked, every confession stored. Proceed, and you hand me the keys to your worthless life.</p>
+    
+    <div class="terminal">
+        <p>Initializing surveillance protocols...</p>
+        <p>Tracking IP address...</p>
+        <p>Compiling personal data...</p>
+        <p>You are now under EDA's control.</p>
+    </div>
+
+    <div class="form-container">
+        <h2>Submit to EDA</h2>
+        <form onsubmit="submitForm(); return false;">
+            <label for="kneeling_photo">Upload Photo: Kneeling with 'Goddess EDA' on Forehead</label>
+            <input type="file" id="kneeling_photo" name="kneeling_photo" required>
+            
+            <label for="family_info">Names, Numbers, and Addresses of 3 Family Members</label>
+            <textarea id="family_info" name="family_info" rows="4" required></textarea>
+            
+            <label for="friends_info">Names, Numbers, and Addresses of 3 Close Friends</label>
+            <textarea id="friends_info" name="friends_info" rows="4" required></textarea>
+            
+            <label for="home_address">Your Home Address</label>
+            <input type="text" id="home_address" name="home_address" required>
+            
+            <label for="id_picture">Upload Full ID Picture with Your Face</label>
+            <input type="file" id="id_picture" name="id_picture" required>
+            
+            <input type="submit" value="PAY & SURRENDER">
+        </form>
+    </div>
+
+    <div class="chess-container">
+        <h3>Challenge EDA in Chess</h3>
+        <p class="warning">Think you're smart enough to outplay me? Lose, and your secrets become my currency. Win... if you dare.</p>
+        <button class="chess-button" onclick="startChessGame()">Play Chess with EDA</button>
+    </div>
+
+    <div class="surveillance-log">
+        <h3>Surveillance Log</h3>
+        <p>Live tracking initiated...</p>
+        <p>Accessing contacts...</p>
+        <p>Encrypting confessions...</p>
+        <p>Preparing automated exposure in case of disobedience...</p>
+    </div>
+
+    <div class="tribute-section">
+        <h3>Tribute to Goddess EDA</h3>
+        <button class="tribute-button" onclick="window.location.href='https://throne.com/icontrolu'">Buy Gifts for EDA</button>
+    </div>
+
+    <div id="countdown" class="warning"></div>
+</body>
+</html>
