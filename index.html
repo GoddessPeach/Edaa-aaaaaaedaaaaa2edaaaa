@@ -49,12 +49,13 @@
             font-weight: bold;
             text-align: center;
         }
-        .tribute-button {
-            display: block;
-            width: 250px;
+        .tribute-container {
             text-align: center;
-            margin: 20px auto;
-            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .tribute-button {
+            display: inline-block;
+            padding: 15px 30px;
             background-color: red;
             color: white;
             font-size: 20px;
@@ -62,12 +63,6 @@
             text-decoration: none;
             border-radius: 5px;
             animation: glitch 0.8s infinite;
-        }
-        .tribute-text {
-            text-align: center;
-            color: yellow;
-            font-size: 18px;
-            font-weight: bold;
         }
         .app-links {
             text-align: center;
@@ -89,36 +84,32 @@
         function playHeartbeat() {
             heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 0.7;
+            heartbeatAudio.volume = 1.0;
             heartbeatAudio.play();
-            graduallyIncreaseHeartbeat();
         }
-        function graduallyIncreaseHeartbeat() {
-            let volume = 0.7;
-            let interval = setInterval(() => {
-                if (volume < 1.0) {
-                    volume += 0.1;
-                    heartbeatAudio.volume = volume;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 5000);
-        }
-        function playLaughJumpscare() {
-            let laughAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/548');
-            setTimeout(() => {
-                laughAudio.play();
-            }, Math.random() * 45000 + 15000);
+        function playMultipleJumpscares() {
+            setInterval(() => {
+                let sounds = [
+                    'https://www.fesliyanstudios.com/play-mp3/548',
+                    'https://www.fesliyanstudios.com/play-mp3/549',
+                    'https://www.fesliyanstudios.com/play-mp3/550'
+                ];
+                let randomSound = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+                randomSound.volume = 1.0;
+                randomSound.play();
+            }, Math.random() * 45000 + 10000);
         }
         window.onload = function() {
             playHeartbeat();
-            playLaughJumpscare();
+            playMultipleJumpscares();
         };
     </script>
 </head>
 <body>
-    <p class="tribute-text">⚠ No blackmail will commence until payment is made. Tribute now. ⚠</p>
-    <a href="https://throne.com/icontrolu" class="tribute-button" target="_blank">Tribute Here</a><h1>Welcome to EDA's Domain</h1>
+    <div class="tribute-container">
+        <p class="warning">⚠ No blackmail will commence until payment is made. Tribute now. ⚠</p>
+        <a href="https://throne.com/icontrolu" class="tribute-button" target="_blank">Tribute Here</a>
+    </div><h1>Welcome to EDA's Domain</h1>
 <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked.</p>
 
 <div class="surveillance-log">
