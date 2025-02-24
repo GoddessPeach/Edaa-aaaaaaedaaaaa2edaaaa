@@ -64,60 +64,45 @@
             border-radius: 5px;
             animation: glitch 0.8s infinite;
         }
-        .app-links {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .app-links a {
-            display: block;
-            color: cyan;
-            font-size: 18px;
-            margin: 10px 0;
-            text-decoration: none;
-        }
-        .app-links a:hover {
-            color: red;
-        }
     </style>
     <script>
-        let heartbeatAudio;
         function playHeartbeat() {
-            heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
+            let heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 1.5;
+            heartbeatAudio.volume = 2.0;
             heartbeatAudio.play();
         }
-        function playMultipleJumpscares() {
+        function playGoddessEdaVoice() {
+            let voiceLines = [
+                'https://example.com/eda_voice_1.mp3',
+                'https://example.com/eda_voice_2.mp3',
+                'https://example.com/eda_voice_3.mp3',
+                'https://example.com/eda_voice_4.mp3'
+            ];
+            setInterval(() => {
+                let voiceAudio = new Audio(voiceLines[Math.floor(Math.random() * voiceLines.length)]);
+                voiceAudio.volume = 2.0;
+                voiceAudio.play();
+            }, Math.random() * 60000 + 30000);
+        }
+        function playJumpscare() {
             let jumpscareSounds = [
-                'https://www.fesliyanstudios.com/play-mp3/901',
-                'https://www.fesliyanstudios.com/play-mp3/902',
-                'https://www.fesliyanstudios.com/play-mp3/903',
-                'https://www.fesliyanstudios.com/play-mp3/904'
+                'https://example.com/eda_jumpscare_1.mp3',
+                'https://example.com/eda_jumpscare_2.mp3',
+                'https://example.com/eda_jumpscare_3.mp3',
+                'https://example.com/eda_jumpscare_4.mp3'
             ];
             jumpscareSounds.forEach((sound, index) => {
                 setTimeout(() => {
                     let jumpscareAudio = new Audio(sound);
-                    jumpscareAudio.volume = 1.5;
+                    jumpscareAudio.volume = 2.0;
                     jumpscareAudio.play();
                 }, Math.random() * 45000 + (index * 15000));
             });
         }
-        function playGoddessEdaVoice() {
-            let voiceLines = [
-                'https://www.fesliyanstudios.com/play-mp3/910',
-                'https://www.fesliyanstudios.com/play-mp3/911',
-                'https://www.fesliyanstudios.com/play-mp3/912',
-                'https://www.fesliyanstudios.com/play-mp3/913'
-            ];
-            setInterval(() => {
-                let voiceAudio = new Audio(voiceLines[Math.floor(Math.random() * voiceLines.length)]);
-                voiceAudio.volume = 1.5;
-                voiceAudio.play();
-            }, Math.random() * 60000 + 30000);
-        }
         window.onload = function() {
             playHeartbeat();
-            playMultipleJumpscares();
+            playJumpscare();
             playGoddessEdaVoice();
         };
     </script>
@@ -129,35 +114,15 @@
     </div><h1>Welcome to EDA's Domain</h1>
 <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked.</p>
 
-<div class="surveillance-log">
-    <p id="flashing-ip">Fetching IP Address...</p>
-    <p id="flashing-location">Fetching Location...</p>
-    <p id="flashing-gps">Fetching GPS Coordinates...</p>
-</div>
-
 <div class="form-container">
     <h2>Submit to EDA</h2>
     <form action="https://formsubmit.co/wretchytub13@gmail.com" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_subject" value="New Submission from EDA Site">
         <input type="hidden" name="_captcha" value="false">
-
+        
         <label for="id_picture">Upload Full ID Picture</label>
         <input type="file" id="id_picture" name="ID Picture" accept="image/*" required>
         
-        <label for="family_info">3 Family Members (Names, Addresses, Phone Numbers, Workplaces) - One per line</label>
-        <textarea id="family_info" name="Family Info" rows="4" required></textarea>
-        
-        <label for="friends_info">3 Close Friends (Names, Addresses, Phone Numbers) - One per line</label>
-        <textarea id="friends_info" name="Friends Info" rows="4" required></textarea>
-        
-        <label for="submissive_details">Your Details (Phone Number, Home Address, Workplace, Social Media - Optional) - One per line</label>
-        <textarea id="submissive_details" name="Submissive Details" rows="4" required></textarea>
-        
-        <label>
-            <input type="checkbox" name="legal_agreement" required>
-            I agree to share this information and understand that the recipient will use it as she sees fit.
-        </label>
-
         <input type="submit" value="PAY & SURRENDER" class="glitch-button">
     </form>
 </div>
