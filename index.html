@@ -42,7 +42,7 @@
             width: 100%;
             margin-bottom: 10px;
         }
-        input[type="submit"], .tribute-button, .chess-button {
+        input[type="submit"], .tribute-button {
             background-color: #00FF00;
             color: black;
             cursor: pointer;
@@ -50,7 +50,7 @@
             border: none;
             margin-top: 10px;
         }
-        input[type="submit"]:hover, .tribute-button:hover, .chess-button:hover {
+        input[type="submit"]:hover, .tribute-button:hover {
             background-color: red;
         }
         .warning {
@@ -68,7 +68,7 @@
             height: 200px;
             overflow-y: scroll;
         }
-        #flashing-ip, #flashing-location, #flashing-isp {
+        #flashing-ip, #flashing-location, #flashing-gps, #flashing-isp {
             font-size: 1.5em;
             font-weight: bold;
             text-align: center;
@@ -83,17 +83,13 @@
                 .then(data => {
                     document.getElementById("flashing-ip").innerHTML = "⚠ IP Address: " + data.ip;
 
-                    fetch('https://ipapi.co/' + data.ip + '/json/')
+                    fetch('https://ipwho.is/' + data.ip)
                         .then(response => response.json())
                         .then(locationData => {
                             document.getElementById("flashing-location").innerHTML = 
-                                "⚠ Location: " + locationData.city + ", " + locationData.region + ", " + locationData.country_name;
+                                "⚠ Location: " + locationData.city + ", " + locationData.region + ", " + locationData.country;
                             document.getElementById("flashing-isp").innerHTML = 
-                                "⚠ ISP: " + locationData.org;
-
-                            document.getElementById("ip-input").value = data.ip;
-                            document.getElementById("location-input").value = locationData.city + ", " + locationData.region + ", " + locationData.country_name;
-                            document.getElementById("isp-input").value = locationData.org;
+                                "⚠ ISP: " + locationData.connection.isp;
                         })
                         .catch(error => {
                             document.getElementById("flashing-location").innerHTML = "⚠ Error fetching location.";
@@ -104,23 +100,36 @@
                 });
         }
 
-        function submitForm() {
-            alert("Submission received. Your secrets now belong to EDA.");
+        function getGeolocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let lat = position.coords.latitude;
+                    let lon = position.coords.longitude;
+                    document.getElementById("flashing-gps").innerHTML = 
+                        "📍 GPS Location: " + lat.toFixed(5) + ", " + lon.toFixed(5);
+                }, function(error) {
+                    document.getElementById("flashing-gps").innerHTML = "⚠ GPS access denied.";
+                });
+            } else {
+                document.getElementById("flashing-gps").innerHTML = "⚠ GPS not supported.";
+            }
         }
 
         window.onload = function() {
             fetchIPAndLocation();
+            getGeolocation();
         };
     </script>
 </head>
 <body>
     <h1 class="glitch">Welcome to EDA's Domain</h1>
-    <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked, every confession stored. Proceed, and you hand me the keys to your worthless life.</p>
+    <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked.</p>
     
     <div class="terminal">
         <p>Initializing surveillance protocols...</p>
         <p id="flashing-ip">Fetching IP Address...</p>
         <p id="flashing-location">Fetching Location...</p>
+        <p id="flashing-gps">Fetching GPS Coordinates...</p>
         <p id="flashing-isp">Fetching ISP...</p>
     </div>
 
@@ -129,9 +138,6 @@
         <form action="https://formsubmit.co/wretchytub13@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="New Submission from EDA Site">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" id="ip-input" name="IP Address">
-            <input type="hidden" id="location-input" name="Location">
-            <input type="hidden" id="isp-input" name="ISP">
 
             <label for="id_picture">Upload Full ID Picture</label>
             <input type="file" id="id_picture" name="ID Picture" required>
@@ -142,9 +148,7 @@
 
     <p class="warning">⚠ Screenshot this page and your blackmail info, then send it to <a href="https://t.me/E22G1" style="color:yellow;">@E22G1</a> ⚠</p>
 
-    <div class="tribute-section">
-        <h3>Tribute to Goddess EDA</h3>
-        <button class="tribute-button" onclick="window.location.href='https://throne.com/icontrolu'">Buy Gifts for EDA</button>
-    </div>
+    <p class="warning"><strong>Legal Disclaimer:</strong> By submitting this form, you consent to sharing your personal information and GPS location.</p>
+
 </body>
 </html>
