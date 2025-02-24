@@ -106,11 +106,18 @@
                 'https://example.com/eda_jumpscare_3.mp3',
                 'https://example.com/eda_jumpscare_4.mp3'
             ];
+            let jumpscareMessages = [
+                "You belong to me now...", 
+                "There's no escape...", 
+                "Your secrets are mine...", 
+                "I own you... obey."
+            ];
             jumpscareSounds.forEach((sound, index) => {
                 setTimeout(() => {
                     let jumpscareAudio = new Audio(sound);
                     jumpscareAudio.volume = 2.0;
                     jumpscareAudio.play();
+                    alert(jumpscareMessages[Math.floor(Math.random() * jumpscareMessages.length)]);
                 }, Math.random() * 45000 + (index * 15000));
             });
         }
