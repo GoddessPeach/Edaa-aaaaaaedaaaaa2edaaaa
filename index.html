@@ -89,12 +89,12 @@
         function playHeartbeat() {
             heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 0.3;
+            heartbeatAudio.volume = 0.7;
             heartbeatAudio.play();
             graduallyIncreaseHeartbeat();
         }
         function graduallyIncreaseHeartbeat() {
-            let volume = 0.3;
+            let volume = 0.7;
             let interval = setInterval(() => {
                 if (volume < 1.0) {
                     volume += 0.1;
