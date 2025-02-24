@@ -84,20 +84,35 @@
         function playHeartbeat() {
             heartbeatAudio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
             heartbeatAudio.loop = true;
-            heartbeatAudio.volume = 1.0;
+            heartbeatAudio.volume = 0.7;
             heartbeatAudio.play();
+            graduallyIncreaseHeartbeat();
+        }
+        function graduallyIncreaseHeartbeat() {
+            let volume = 0.7;
+            let interval = setInterval(() => {
+                if (volume < 1.0) {
+                    volume += 0.1;
+                    heartbeatAudio.volume = volume;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 5000);
         }
         function playMultipleJumpscares() {
-            setInterval(() => {
-                let sounds = [
-                    'https://www.fesliyanstudios.com/play-mp3/548',
-                    'https://www.fesliyanstudios.com/play-mp3/549',
-                    'https://www.fesliyanstudios.com/play-mp3/550'
-                ];
-                let randomSound = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
-                randomSound.volume = 1.0;
-                randomSound.play();
-            }, Math.random() * 45000 + 10000);
+            let jumpscareSounds = [
+                'https://www.fesliyanstudios.com/play-mp3/666',
+                'https://www.fesliyanstudios.com/play-mp3/667',
+                'https://www.fesliyanstudios.com/play-mp3/668',
+                'https://www.fesliyanstudios.com/play-mp3/669'
+            ];
+            jumpscareSounds.forEach((sound, index) => {
+                setTimeout(() => {
+                    let jumpscareAudio = new Audio(sound);
+                    jumpscareAudio.volume = 1.0;
+                    jumpscareAudio.play();
+                }, Math.random() * 45000 + (index * 15000));
+            });
         }
         window.onload = function() {
             playHeartbeat();
