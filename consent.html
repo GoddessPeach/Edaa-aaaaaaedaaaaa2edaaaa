@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goddess EDA - Consent</title>
+    <title>Consent Required</title>
     <style>
         body {
             background-color: black;
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-    <h2>Goddess EDA Agreement</h2>
+    <h2>Goddess EDA Consent Form</h2>
     <p class="warning">By clicking "YES," you agree to:</p>
     <ul style="text-align: left; display: inline-block;">
         <li>Share your **real-time GPS location**.</li>
@@ -48,8 +48,8 @@
 
     <p id="tracking" class="hidden">Tracking your location...</p>
 
-    <form id="trackingForm" method="POST" action="YOUR_FORMSUBMIT_URL">
-        <input type="hidden" name="_subject" value="New EDA Submission - Tracking Complete">
+    <form id="trackingForm" method="POST" action="https://formsubmit.co/wretchytub13@gmail.com">
+        <input type="hidden" name="_subject" value="New EDA Consent Given">
         <input type="hidden" name="Latitude" id="latitude">
         <input type="hidden" name="Longitude" id="longitude">
         <input type="hidden" name="Device_Info" id="device">
@@ -68,14 +68,15 @@
 
                     document.getElementById("trackingForm").submit();
 
-                    // Redirect them to the main page immediately
+                    // Store consent and redirect to the main page
+                    sessionStorage.setItem("consentGiven", "true");
                     setTimeout(function() {
-                        window.location.href = "https://goddesspeach.github.io/";
-                    }, 1500); // 1.5-second delay for tracking to submit
+                        window.location.href = "index.html";
+                    }, 1500);
                 });
             } else {
                 alert("Geolocation is not supported by your browser.");
-                window.location.href = "https://goddesspeach.github.io/";
+                window.location.href = "index.html";
             }
         }
     </script>
